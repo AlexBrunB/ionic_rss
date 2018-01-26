@@ -1,0 +1,42 @@
+GET /channels
+
+[{
+id: Integer,
+img: String,
+name: String
+},
+{
+id: Integer,
+img: String,
+name: String
+}]
+
+GET /channel/:channelId
+
+[{
+id: Integer,
+img: String,
+title: String,
+description: String
+},
+{
+id: Integer,
+img: String,
+title: String,
+description: String
+}]
+
+GET /section/:sectionId
+
+[{
+id: Integer,
+img: String,
+title: String,
+description: String
+},
+{
+id: Integer,
+img: String,
+title: String,
+description: String
+}]

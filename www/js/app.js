@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -40,46 +40,72 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   // Each tab has its own nav history stack:
 
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.news', {
+    url: '/news',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-news': {
+        templateUrl: 'templates/tab-news.html',
+        controller: 'NewsCtrl'
       }
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
+  .state('tab.newsSections', {
+    url: '/news/:newsCode',
+    views: {
+      'tab-news': {
+        templateUrl: 'templates/tab-newsSections.html',
+        controller: 'NewsSectionsCtrl'
       }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+    }
+  })
+
+
+
+
+  .state('tab.sport', {
+      url: '/sport',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+        'tab-sport': {
+          templateUrl: 'templates/tab-sport.html',
+          controller: 'SportCtrl'
         }
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.newsTitles', {
+      url: '/news/newsCode/newsSection',
+      views: {
+        'tab-news': {
+      templateUrl: 'templates/tab-newsTitles.html',
+      controller: 'NewsTitlesCtrl'
+      }
+  },
+  params : {ServiceProvider: null, section: null, url: null }
+    })
+
+    .state('tab.newsDetails', {
+      url: '/news/newsCode/newSection/newsDetails',
+      views: {
+        'tab-news': {
+      templateUrl: 'templates/tab-newsDetails.html',
+      controller: 'DetailsCtrl'
+      }
+  },
+  params : {Title: null, Image: null, Details: null }
+    })
+
+  .state('tab.tech', {
+    url: '/tech',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-tech': {
+        templateUrl: 'templates/tab-tech.html',
+        controller: 'TechCtrl'
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/news');
 
 });

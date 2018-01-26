@@ -1,0 +1,10 @@
+<ion-view view-title="{{currentNews}}">
+  <ion-content class="padding">
+    <ion-list id="newsSections-list2">
+    <ion-item class="item-thumbnail-left item-text-wrap" ng-repeat="x in sections | filter: currentNews" ng-click="goToSection(x)">
+      <img ng-src="img/{{currentNews}}.png" />
+      <h2 >{{x.title}}</h2>
+    </ion-item>
+  </ion-list>
+  </ion-content>
+</ion-view>

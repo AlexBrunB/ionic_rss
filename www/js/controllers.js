@@ -1,28 +1,61 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('NewsCtrl', function($scope) {
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('NewsSectionsCtrl', function($scope,NewsSections,$stateParams, $state) {
+$scope.currentNews=$stateParams.newsCode;
+ $scope.sections=NewsSections.all();
+$scope.goToSection= function(sect){
+	$state.go('tab.newsTitles',{ServiceProvider: sect.ServiceProvider, section: sect.title, url: sect.url});
+};
+
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('NewsTitlesCtrl', function($scope,NewsSections,$stateParams, NewsFactory, $state) {
+	$scope.currentNewsSection = $stateParams.section;
+	$scope.loadTitles =function(){
+	NewsFactory.getNewsTitles($stateParams.url)
+		.then(function(res){
+			console.log(res.data.items);
+		if (res.data.items){
+			$scope.titles = res.data.items;
+		}
+		else
+		{
+			console.log("Feed error : "+ res.data);
+		} })
+		.catch(function(err) {
+			console.log("Connection error : ");
+		})
+		.finally(function() {
+		});
+	};
+	$scope.loadTitles();
+
+$scope.goToSection= function(sect){
+	$state.go('tab.newsDetails',{Title: sect.title, Image: sect.enclosure.link, Details:sect.content});
+	};
+})
+
+.controller('DetailsCtrl', function($scope, $stateParams) {
+
+	$scope.currentTitle = $stateParams.Title;
+	$scope.currentImage = $stateParams.Image;
+	$scope.currentDetails = $stateParams.Details;
+	
+
+})
+
+.controller('SportCtrl', function($scope) {
+
+
+
+})
+
+
+.controller('TechCtrl', function($scope) {
+
 });

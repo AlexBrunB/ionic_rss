@@ -74,27 +74,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   .state('tab.newsTitles', {
-      url: '/news/newsCode/newsSection',
+      url: '/news/:sectionId',
       views: {
         'tab-news': {
       templateUrl: 'templates/tab-newsTitles.html',
       controller: 'NewsTitlesCtrl'
       }
-  },
-  params : {ServiceProvider: null, section: null, url: null }
-    })
+  }})
 
     .state('tab.newsDetails', {
-      url: '/news/newsCode/newSection/newsDetails',
+      url: '/news/:newsId',
       views: {
         'tab-news': {
-      templateUrl: 'templates/tab-newsDetails.html',
-      controller: 'DetailsCtrl'
-      }
-  },
-  params : {Title: null, Image: null, Details: null }
-    })
-
+          templateUrl: 'templates/tab-newsDetails.html',
+          controller: 'DetailsCtrl'
+        }
+      }})
   .state('tab.tech', {
     url: '/tech',
     views: {

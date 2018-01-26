@@ -1,15 +1,80 @@
 angular.module('starter.services', [])
 
-.factory('NewsFactory', ['$http',function($http){
-  var rss_converter = "https://rss2json.com/api.json?rss_url=";
-  return {
-    getNewsTitles: function(url) {
-  return $http.get(rss_converter+ encodeURIComponent(url));
-  }
-  };
-}])
+  .factory('Channels', function($http) {
+    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/";
+    return {
+      all: function(callback) {
+        $http.get(baseUrl + '/channels').then(
+          function(response) {
+            $scope.channels = response.data;
+            callback(response.data);
+          }, function(error) {
+            console.log(error);
+          }
+        )
+      },
+      getChannel : function(channelId) {
+        for (var i = 0; i < $scope.channels.length; i++) {
+          if ($scope.channels[i].id === channelId) {
+            return $scope.channels[i];
+          }
+        }
+        return null;
+      }
+    };
+  })
 
-.factory('NewsSections', function() {
+  .factory('Sections', function($http) {
+    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/";
+    return {
+      all: function(channelId, callback) {
+        $http.get(baseUrl + '/section/' + channelId).then(
+          function(response) {
+            $scope.sections = response.data;
+            callback(response.data);
+          }, function(error) {
+            console.log(error);
+          }
+        )
+      },
+      getSection: function(sectionId) {
+        for (var i = 0; i < $scope.sections.length; i++) {
+          if ($scope.sections[i].id === sectionId) {
+            return $scope.sections[i];
+          }
+        }
+        return null;
+      }
+    };
+
+  })
+
+  .factory('News', function($http) {
+    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/";
+    return {
+      all: function(sectionId, callback) {
+        $http.get(baseUrl + '/news/' + sectionId).then(
+          function(response) {
+            $scope.news = response.data;
+            callback(response.data);
+          }, function(error) {
+            console.log(error);
+          }
+        )
+      },
+      getNews: function(newsId) {
+        for (var i = 0; i < $scope.news.length; i++) {
+          if ($scope.news[i].id === newsId) {
+            return $scope.news[i];
+          }
+        }
+        return null;
+      }
+    }
+  })
+
+
+  .factory('NewsSections', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data

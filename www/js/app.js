@@ -74,7 +74,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   .state('tab.newsTitles', {
-      url: '/news/:sectionId',
+      url: '/newssections/:sectionId',
       views: {
         'tab-news': {
       templateUrl: 'templates/tab-newsTitles.html',
@@ -83,7 +83,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   }})
 
     .state('tab.newsDetails', {
-      url: '/news/:newsId',
+      url: '/newsdetails/:newsId',
       views: {
         'tab-news': {
           templateUrl: 'templates/tab-newsDetails.html',

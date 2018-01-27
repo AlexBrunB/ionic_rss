@@ -10,6 +10,7 @@ angular.module('starter.controllers', [])
 $scope.currentNetworkId=$stateParams.newsCode;
  Sections.all($scope.currentNetworkId, function(data) {
    $scope.sections = data;
+   console.log($scope.sections);
  });
 //$scope.goToSection= function(sect){
 	//$state.go('tab.newsTitles',{ServiceProvider: sect.ServiceProvider, section: sect.title, url: sect.url});
@@ -17,19 +18,21 @@ $scope.currentNetworkId=$stateParams.newsCode;
 
 })
 
-.controller('NewsTitlesCtrl', function($scope,News,$stateParams, NewsFactory, $state) {
+.controller('NewsTitlesCtrl', function($scope,News,$stateParams, $state) {
   News.all($stateParams.sectionId, function(data) {
     $scope.news = data;
+    console.log($scope.news);
   });
 })
 
 .controller('DetailsCtrl', function($scope, News, $stateParams) {
 
-  News.getNews($stateParams.newsId, function(data) {
-    $scope.currentTitle = data.title;
-    $scope.currentImage = data.img;
-    $scope.currentDetails = data.description;
-  });
+  var data = News.getNews($stateParams.newsId);
+  console.log(data);
+  $scope.currentTitle = data.title;
+  console.log(data.image);
+  $scope.currentImage = data.image;
+  $scope.currentDetails = data.description;
 })
 
 .controller('SportCtrl', function($scope) {

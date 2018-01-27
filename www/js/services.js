@@ -1,12 +1,12 @@
 angular.module('starter.services', [])
 
-  .factory('Channels', function($http) {
-    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/";
+  .factory('Channels', function($http, $rootScope) {
+    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/data";
     return {
       all: function(callback) {
         $http.get(baseUrl + '/channels').then(
           function(response) {
-            $scope.channels = response.data;
+            $rootScope.channels = response.data;
             callback(response.data);
           }, function(error) {
             console.log(error);
@@ -14,9 +14,9 @@ angular.module('starter.services', [])
         )
       },
       getChannel : function(channelId) {
-        for (var i = 0; i < $scope.channels.length; i++) {
-          if ($scope.channels[i].id === channelId) {
-            return $scope.channels[i];
+        for (var i = 0; i < $rootScope.channels.length; i++) {
+          if ($rootScope.channels[i].id === channelId) {
+            return $rootScope.channels[i];
           }
         }
         return null;
@@ -24,13 +24,13 @@ angular.module('starter.services', [])
     };
   })
 
-  .factory('Sections', function($http) {
-    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/";
+  .factory('Sections', function($http, $rootScope) {
+    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/data";
     return {
       all: function(channelId, callback) {
-        $http.get(baseUrl + '/section/' + channelId).then(
+        $http.get(baseUrl + '/section?where=channelId.id%3D' + channelId).then(
           function(response) {
-            $scope.sections = response.data;
+            $rootScope.sections = response.data;
             callback(response.data);
           }, function(error) {
             console.log(error);
@@ -38,9 +38,9 @@ angular.module('starter.services', [])
         )
       },
       getSection: function(sectionId) {
-        for (var i = 0; i < $scope.sections.length; i++) {
-          if ($scope.sections[i].id === sectionId) {
-            return $scope.sections[i];
+        for (var i = 0; i < $rootScope.sections.length; i++) {
+          if ($rootScope.sections[i].id === sectionId) {
+            return $rootScope.sections[i];
           }
         }
         return null;
@@ -49,13 +49,15 @@ angular.module('starter.services', [])
 
   })
 
-  .factory('News', function($http) {
-    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/";
+  .factory('News', function($http, $rootScope) {
+    var baseUrl = "https://api.backendless.com/0E548BB8-EE8A-B78E-FFFD-A683D01A8800/8606A3F3-CD25-639B-FFE3-1AE592E11700/data";
     return {
       all: function(sectionId, callback) {
-        $http.get(baseUrl + '/news/' + sectionId).then(
+        $http.get(baseUrl + '/news?where=sectionId.id%3D' + sectionId).then(
           function(response) {
-            $scope.news = response.data;
+            console.log("Ca fait la requete");
+            console.log(response);
+            $rootScope.news = response.data;
             callback(response.data);
           }, function(error) {
             console.log(error);
@@ -63,9 +65,12 @@ angular.module('starter.services', [])
         )
       },
       getNews: function(newsId) {
-        for (var i = 0; i < $scope.news.length; i++) {
-          if ($scope.news[i].id === newsId) {
-            return $scope.news[i];
+        for (var i = 0; i < $rootScope.news.length; i++) {
+          console.log("rootId : " + typeof $rootScope.news[i].id);
+          console.log("newsId : " + typeof newsId);
+          if ($rootScope.news[i].id === parseInt(newsId)) {
+            console.log($rootScope.news[i]);
+            return $rootScope.news[i];
           }
         }
         return null;

@@ -1,10 +1,10 @@
 <ion-view view-title="{{currentNewsSection}}">
   <ion-content class="padding">
   	<ion-list>
-<ion-item class="item-thumbnail-left item-text-wrap" ng-repeat="x in titles" ng-click="goToSection(x)">
-<img ng-src="{{x.enclosure.link && x.enclosure.link || x.enclosure.thumbnail}}" />
+<ion-item class="item-thumbnail-left item-text-wrap" ng-repeat="x in news" href="#/tab/newsdetails/{{x.id}}"">
+<img ng-src="{{x.image}}" />
 <h2 >{{x.title}}</h2>
-<span class="item-note"> {{x.pubDate}}</span>
+<span class="item-note"> {{x.resume}}</span>
 </ion-item>
 </ion-list>
 

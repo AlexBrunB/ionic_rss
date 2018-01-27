@@ -1,14 +1,9 @@
 <ion-view view-title="News">
   <ion-content class="padding">
     <ion-list >
-    <ion-item class="item-thumbnail-left" href="#/tab/news/CNN">
-              <img src="img/CNN.png"/>
-      <h2>CNN</h2>
-    </ion-item>
-    <ion-item class="item-thumbnail-left" href="#/tab/news/BBC">
-              <img src="img/BBC.png"/>
-      <h2>BBC</h2>
-    </ion-item>
+    <ion-item class="item-thumbnail-left" ng-repeat="item in channels" href="#/tab/news/{{item.id}}">
+              <img ng-src={{item.img}}/>
+      <h2>{{item.name}}</h2>
   </ion-list>
 
   </ion-content>
